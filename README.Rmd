@@ -47,6 +47,16 @@ deaths <- av %>%
 
 # Display the first few rows of the deaths dataset
 head(deaths)
+
+returns <- av %>%
+  select(starts_with("Return")) %>%
+  pivot_longer(cols = everything(), names_to = "Time", values_to = "Return") %>%
+  mutate(Time = parse_number(Time),
+         Return = ifelse(Return == "YES", "yes", "no"))
+
+head(returns)
+
+
 ```
 
 
