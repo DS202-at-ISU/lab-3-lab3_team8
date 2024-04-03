@@ -90,7 +90,24 @@ maxReturns %>% count(Time_max, Returned)
 Similarly, deal with the returns of characters.
 
 Based on these datasets calculate the average number of deaths an Avenger suffers. 
+```{r}
+# Counts of each amount of death with YES and NO
+maxdeath_count <- maxdeaths %>% count(Time_max, Died)
 
+# Counts of each amount of death with only YES
+maxdeath_count_yes <- maxdeath_count %>% filter(maxdeath_count$Died == "YES")
+
+# weighted sum of the YES deaths
+weighted_sum <- sum(maxdeath_count_yes$Time_max * maxdeath_count_yes$n)
+
+# total sum of all avengers
+total_count <- sum(maxdeath_count$n)
+
+# calculate average
+average_deaths <- weighted_sum / total_count
+
+average_deaths
+```
 
 
 
