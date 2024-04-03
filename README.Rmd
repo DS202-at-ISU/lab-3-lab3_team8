@@ -60,6 +60,31 @@ maxdeaths <- deaths %>%
 maxdeaths %>% count(Time_max, Died)
 ```
 
+```{r}
+returns <- av %>% select(
+  URL, 
+  Name.Alias,
+  starts_with("Return")
+) %>% pivot_longer(
+  cols = Return1:Return5,
+  names_to = "Time",
+  values_to = "Returned"
+)
+
+returns <- returns %>% mutate(
+  Time = parse_number(Time)
+)
+maxReturns <- returns %>% 
+  filter(Returned != "") %>% 
+  group_by(URL, Returned) %>% 
+  summarise(
+    Time_max = max(Time, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+maxReturns %>% count(Time_max, Returned)
+```
+
 
 
 Similarly, deal with the returns of characters.
