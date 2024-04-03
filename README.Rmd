@@ -132,4 +132,40 @@ so from our deaths column the sum of the number fo deaths does equal 89 and the 
 
 
 
+> Quote the statement you are planning to fact-check.
+
+### Include the code
+
+Make sure to include the code to derive the (numeric) fact for the statement
+
+### Include your answer
+
+Include at least one sentence discussing the result of your fact-checking endeavor.
+
+### (Alexa Elliott) "Out of the 173 listed Avengers, my analysis found that 69 died at least one time after they joined the team. That's about 40 percent of all people who have ever signed on the team"
+
+### Include the code
+
+```{r}
+#Total number of avengers
+total_avengers <- nrow(av)
+total_avengers
+
+#Number of avengers that died at least once
+avengers_died_at_least_once <- av %>%
+  filter(Death1 == "YES" | Death2 == "YES" | Death3 == "YES" | Death4 == "YES" | Death5 == "YES")
+
+# Count the number of Avengers who died at least once
+count_avengers_died_at_least_once <- nrow(avengers_died_at_least_once)
+count_avengers_died_at_least_once
+
+#Calculating the percentage of avengers who died at least once time after joining the team
+percentage_avengers_died <- (count_avengers_died_at_least_once / total_avengers) * 100
+percentage_avengers_died
+```
+### Include your answer
+
+Total number of avengers is 173 and then going through and counting the avengers that died at least once was 69 and using that information I calulate the percent of people who died at least once after they joined the team and it was 39.88
+
+
 Upload your changes to the repository. Discuss and refine answers as a team.
