@@ -121,15 +121,36 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
+### (Logan) "There’s a 2-in-3 chance that a member of the Avengers returned from their first stint in the afterlife"
 
 ### Include the code
 
-Make sure to include the code to derive the (numeric) fact for the statement
+```{r}
+max_return_count <- maxReturns %>% count(Time_max, Returned)
+maxdeath_count <- maxdeaths %>% count(Time_max, Died)
+
+# Find count of all averngers who died once
+died <- subset(maxdeath_count, Time_max == 1 & Died == "YES")
+
+num_died <- sum(died$n)
+
+
+#Find number of all avengers who returned the first time
+returned <- subset(max_return_count, Time_max == 1 & Returned == "YES")
+
+num_returned <- sum(returned$n)
+
+
+#Find ratio of died and returned
+ratio <- num_returned / num_died
+
+ratio
+
+```
 
 ### Include your answer
 
-Include at least one sentence discussing the result of your fact-checking endeavor.
+Through my findings there were 71 percent that returned that died once, so a little more than 2 in 3 chance to return after your first death.
 
 ### (Olivia) I counted 89 total deaths — some unlucky Avengers are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback. Maybe they didn’t actually die and were secretly in the Microverse, or they stayed on Franklin Richards‘s or the Scarlet Witch‘s good side in life, or they were dragged back into Avenging by the Chaos King or the Grim Reaper, or perhaps a colleague made a deal with time travelers. Who knows!
 
