@@ -205,5 +205,39 @@ percentage_avengers_died
 
 Total number of avengers is 173 and then going through and counting the avengers that died at least once was 69 and using that information I calulate the percent of people who died at least once after they joined the team and it was 39.88
 
+### FiveThirtyEight Statement
 
+### (Spenser Leise) "Of the nine Avengers we see on screen — Iron Man, Hulk, Captain America, Thor, Hawkeye, Black Widow, Scarlet Witch, Quicksilver and The Vision — every single one of them has died at least once in the course of their time Avenging in the comics."
+
+### Include the code
+```{r}
+onscreen <- c("Anthony Edward Stark", "Robert Bruce Banner", "Steven Rogers",
+                     "Thor Odinson", "Clinton Francis Barton", "Natalia Alianovna Romanova",
+                     "Wanda Maximoff", "Pietro Maximoff", "Victor Shade (alias)")
+
+# Filter av data frame to include specified Avengers characters
+deaths <- av %>%
+  filter(Name.Alias %in% onscreen)
+
+# Count the number of deaths for each Avenger
+deaths_count <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarise(total_deaths = sum(
+    !is.na(Death1) | !is.na(Death2) | !is.na(Death3) | 
+    !is.na(Death4) | !is.na(Death5)
+  ))
+
+# Check if all specified Avengers characters have died at least once
+all_avengers_died <- all(deaths_count$total_deaths > 0)
+
+# Print results
+if (all_avengers_died) {
+  cat("All specified Avengers characters have died at least once in the comics.\n")
+} else {
+  cat("Not all specified Avengers characters have died at least once in the comics.\n")
+}
+```
+### Include your answer
+
+*The on-screen avengers that existed when this article was made were the 9 that were in age of ultron. Using the names used in the Name.alias column, I wrote code to verify with our data if they have all died at least once. The code spit back that all of those avengers have died at least once. *
 Upload your changes to the repository. Discuss and refine answers as a team.
